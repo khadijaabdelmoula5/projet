@@ -108,4 +108,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     return $this->password;
 
 }
+
+//Fonctions callback
+
+//PreUpdate et PrePersist
+
 }

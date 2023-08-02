@@ -10,6 +10,8 @@ use Doctrine\ORM\Mapping as ORM;
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
 class Client
 {
+
+    //Ajouter les assert pour les champs obligatoires
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]

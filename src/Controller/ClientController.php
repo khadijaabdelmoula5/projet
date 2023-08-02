@@ -10,11 +10,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
 
 #[Route('/client')]
 class ClientController extends AbstractController
 {
     #[Route('/', name: 'app_client_index', methods: ['GET'])]
+    #[IsGranted('ROLE_USER')]
     public function index(ClientRepository $clientRepository): Response
     {
         return $this->render('client/index.html.twig', [
@@ -25,16 +27,19 @@ class ClientController extends AbstractController
     #[Route('/new', name: 'app_client_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+
         $client = new Client();
         $form = $this->createForm(ClientType::class, $client);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+
             $entityManager->persist($client);
             $entityManager->flush();
 
             return $this->redirectToRoute('app_client_index', [], Response::HTTP_SEE_OTHER);
         }
+
 
         return $this->renderForm('client/new.html.twig', [
             'client' => $client,
