@@ -23,7 +23,13 @@
                 <td>{{ project.id }}</td>
                 <td>{{ project.name }}</td>
                 <td>{{ project.addressProject }}</td>
-                <td>{{ project.picture }}</td>
+                <td>
+                    {% if project.picture %}
+                        <img src="{{ asset('uploads/' ~ project.picture) }}" alt="Project Picture" width="100">
+                    {% else %}
+                        No Picture
+                    {% endif %}
+                </td>
                 <td>{{ project.description }}</td>
                 <td>{{ project.projectStatus }}</td>
                 <td>
