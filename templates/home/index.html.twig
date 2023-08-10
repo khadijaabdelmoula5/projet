@@ -41,12 +41,23 @@
 </style>
 
 <div class="example-wrapper">
-    <h1>Hello {{ controller_name }}! ✅</h1>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/Lenovo/Desktop/projetarch/src/Controller/HomeController.php'|file_link(0) }}">src/Controller/HomeController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/Lenovo/Desktop/projetarch/templates/home/index.html.twig'|file_link(0) }}">templates/home/index.html.twig</a></code></li>
-    </ul>
+    <section id="accueil">
+        <div class="hero">
+            <h1>Projet d'Architecture d'Intérieur</h1>
+            <p>Bienvenue dans notre monde de créativité et de design.</p>
+        </div>
+    </section>
+    <section id="projet">
+        <div class="project-details">
+            <h2>Notre Projet</h2>
+            <p>Nous sommes fiers de présenter notre dernier projet d'architecture d'intérieur. Chaque détail a été soigneusement pensé pour créer un espace à la fois fonctionnel et esthétique.</p>
+        </div>
+    </section>
+     <section id="portfolio">
+        <div class="portfolio-gallery">
+          <img src="{{asset('uploads/a.png')}}"width="100%">
+        </div>
+    </section>
 </div>
 {% endblock %}
