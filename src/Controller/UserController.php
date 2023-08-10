@@ -13,6 +13,8 @@ use App\Form\UserType;
 use App\Security\LoginFormAuthenticator;
 use Symfony\Component\PasswordHasher\Hasher\UserPasswordHasherInterface;
 use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+
 
 
 
@@ -20,6 +22,8 @@ use Symfony\Component\Security\Http\Authentication\UserAuthenticatorInterface;
 class UserController extends AbstractController
 {
     #[ Route('/', name: 'app_user_index', methods: ['GET']) ]
+    #[IsGranted('ROLE_USER')]
+
     public function index(UserRepository $userRepository): Response
     {
         return $this->render('user/index.html.twig', [
