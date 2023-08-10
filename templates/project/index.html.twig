@@ -1,6 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}Project index{% endblock %}
+{% block stylesheets %}
+    {{ parent() }}
+    <style>
+        .custom-img {
+            max-width: 100px;
+            height: auto;
+        }
+    </style>
+{% endblock %}
 
 {% block body %}
  <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -55,7 +64,13 @@
                 <td>{{ project.id }}</td>
                 <td>{{ project.name }}</td>
                 <td>{{ project.addressProject }}</td>
-                <td>{{ project.picture }}</td>
+                 <td>
+                    {% if project.picture %}
+                        <img src="{{ asset('uploads/' ~ project.picture) }}" alt="Project Picture" class="custom-img">
+                    {% else %}
+                        No Picture Available
+                    {% endif %}
+                </td>
                 <td>{{ project.description }}</td>
                 <td>{{ project.projectStatus }}</td>
                 <td>

@@ -32,8 +32,11 @@
         {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
         {{ form_label(registrationForm.agreeTerms, 'I agree to the terms', {'label_attr': {'class': 'form-check-label'}}) }}
       </div>
+      <div class="my-3"></div>
 
-      <button type="submit" class="btn btn-primary">Register</button>
+      <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
+      <div class="my-3"></div>
+        <a href="{{ path('app_login') }}" class="btn btn-danger btn-lg btn-block">Back To Login</a>
       {{ form_end(registrationForm) }}
     </div>
   </div>

@@ -30,6 +30,21 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             // Handle the uploaded picture
+             $uploadedFile = $form->get('picture')->getData();
+
+             if ($uploadedFile) {
+                 $newFilename = uniqid().'.'.$uploadedFile->getClientOriginalExtension();
+ 
+                 // Move the file to the desired location (e.g., public/uploads)
+                 $uploadedFile->move(
+                     $this->getParameter('upload_directory'), // Define this parameter in your config
+                     $newFilename
+                 );
+ 
+                 // Save the filename to the entity
+                 $project->setPicture($newFilename);
+             }
             $entityManager->persist($project);
             $entityManager->flush();
 
@@ -57,6 +72,21 @@ class ProjectController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
+             // Handle the uploaded picture
+             $uploadedFile = $form->get('picture')->getData();
+
+             if ($uploadedFile) {
+                 $newFilename = uniqid().'.'.$uploadedFile->getClientOriginalExtension();
+ 
+                 // Move the file to the desired location (e.g., public/uploads)
+                 $uploadedFile->move(
+                     $this->getParameter('upload_directory'), // Define this parameter in your config
+                     $newFilename
+                 );
+ 
+                 // Save the filename to the entity
+                 $project->setPicture($newFilename);
+             }
             $entityManager->flush();
 
             return $this->redirectToRoute('app_project_index', [], Response::HTTP_SEE_OTHER);
