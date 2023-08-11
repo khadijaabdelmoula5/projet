@@ -35,6 +35,11 @@
                 <td>{{ client.cin }}</td>
                 <td></td>
             </tr>
+            <tr>
+                <th>User</th>
+                <td>{{ client.user.login }}  </td>
+                <td></td>
+            </tr>
              <tr>
                 <th><a href="{{ path('app_client_index') }}" class="btn btn-primary btn-block">Back to List</a></th>
                 <td> <a href="{{ path('app_client_edit', {'id': client.id}) }}" class="btn btn-success btn-block">Edit</a></td>

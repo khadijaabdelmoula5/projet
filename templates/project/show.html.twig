@@ -49,6 +49,11 @@
                                 <td></td>
 
             </tr>
+            <tr>
+                <th>Client</th>
+                <td>{{ project.client.name }}  </td>
+                <td></td>
+            </tr>
              <tr>
                 <th><a href="{{ path('app_project_index') }}" class="btn btn-primary btn-block">Back to List</a></th>
                 <td> <a href="{{ path('app_project_edit', {'id': project.id}) }}" class="btn btn-success btn-block">Edit</a></td>

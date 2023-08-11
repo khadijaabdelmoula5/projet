@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\UserRepository;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
@@ -11,6 +12,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 
 #[ORM\Entity(repositoryClass: UserRepository::class)]
+#[ORM\HasLifecycleCallbacks]
 #[UniqueEntity(fields: ['login'], message: 'There is already an account with this login')]
 class User implements UserInterface, PasswordAuthenticatedUserInterface
 {
@@ -30,6 +32,12 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
      */
     #[ORM\Column]
     private ?string $password = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTime $CreatedAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $UpdateAt = null;
 
     public function getId(): ?int
     {
@@ -113,4 +121,44 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
 //PreUpdate et PrePersist
 
+public function getCreatedAt(): ?\DateTimeImmutable
+{
+    return $this->CreatedAt;
+}
+
+public function setCreatedAt(?\DateTimeImmutable $CreatedAt): static
+{
+    $this->CreatedAt = $CreatedAt;
+
+    return $this;
+}
+
+public function getUpdateAt(): ?\DateTimeInterface
+{
+    return $this->UpdateAt;
+}
+
+public function setUpdateAt(?\DateTimeInterface $UpdateAt): static
+{
+    $this->UpdateAt = $UpdateAt;
+
+    return $this;
+}
+
+#[ORM\PrePersist]
+   public function PrePersist()
+   {
+       $this->CreatedAt = new \DateTime();
+       $this->UpdateAt = new \DateTime();
+
+    
+    }
+
+
+    #[ORM\PreUpdate]
+   public function PreUpdate()
+   {
+    $this->UpdateAt = new \DateTime();
+
+    }
 }

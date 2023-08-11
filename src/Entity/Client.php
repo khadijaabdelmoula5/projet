@@ -5,9 +5,12 @@ namespace App\Entity;
 use App\Repository\ClientRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
+#[ORM\HasLifecycleCallbacks]
+
 class Client
 {
 
@@ -34,6 +37,12 @@ class Client
 
     #[ORM\ManyToOne(inversedBy: 'client')]
     private ?User $user = null;
+
+    #[ORM\Column(nullable: true)]
+    private ?\DateTime $CreatedAt = null;
+
+    #[ORM\Column(type: Types::DATETIME_MUTABLE, nullable: true)]
+    private ?\DateTimeInterface $UpdateAt = null;
 
     public function __construct()
     {
@@ -142,5 +151,45 @@ class Client
        return $this->address_project;
        return $this->project_status;
        return $this->picture;
+    }
+
+    public function getCreatedAt(): ?\DateTimeImmutable
+    {
+        return $this->CreatedAt;
+    }
+
+    public function setCreatedAt(?\DateTimeImmutable $CreatedAt): static
+    {
+        $this->CreatedAt = $CreatedAt;
+
+        return $this;
+    }
+
+    public function getUpdateAt(): ?\DateTimeInterface
+    {
+        return $this->UpdateAt;
+    }
+
+    public function setUpdateAt(?\DateTimeInterface $UpdateAt): static
+    {
+        $this->UpdateAt = $UpdateAt;
+
+        return $this;
+    }
+    #[ORM\PrePersist]
+   public function PrePersist()
+   {
+       $this->CreatedAt = new \DateTime();
+       $this->UpdateAt = new \DateTime();
+
+    
+    }
+
+
+    #[ORM\PreUpdate]
+   public function PreUpdate()
+   {
+    $this->UpdateAt = new \DateTime();
+
     }
 }
