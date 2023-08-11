@@ -6,7 +6,9 @@ use App\Entity\User;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Symfony\Component\Validator\Constraints\IsTrue;
+use Symfony\Component\Validator\Constraints\Length;
+use Symfony\Component\Validator\Constraints\NotBlank;
 
 class UserType extends AbstractType
 {
@@ -20,7 +22,17 @@ class UserType extends AbstractType
            # ->add('roles')
            ->add('password', null, [
             'attr' => ['class' => 'form-control'],
-            'label' => 'Password'
+            'label' => 'Password',
+            'constraints' => [
+                new NotBlank([
+                    'message' => 'Please enter a password',
+                ]),
+                new Length([
+                    'min' => 6,
+                    'minMessage' => 'Your password should be at least {{ limit }} characters',
+                    'max' => 4096,
+                ]),
+            ],
         ])
         ;
     }

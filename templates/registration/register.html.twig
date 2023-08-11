@@ -5,7 +5,7 @@
 {% block stylesheet %}
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
 <style>
-  /* Additional custom styles can be added here */
+  /* Styles personnalisés peuvent être ajoutés ici */
 </style>
 {% endblock stylesheet %}
 
@@ -14,8 +14,6 @@
   <div class="row justify-content-center">
     <div class="col-md-6">
       <h1>Register</h1>
-
-      {{ form_errors(registrationForm) }}
 
       {{ form_start(registrationForm) }}
       <div class="form-group">
@@ -26,17 +24,15 @@
       <div class="form-group">
         {{ form_label(registrationForm.plainPassword, 'Password') }}
         {{ form_widget(registrationForm.plainPassword, {'attr': {'class': 'form-control'}}) }}
+        {{ form_errors(registrationForm.plainPassword) }} {# Affiche les erreurs de validation du mot de passe #}
       </div>
 
-      <div class="form-check">
-        {{ form_widget(registrationForm.agreeTerms, {'attr': {'class': 'form-check-input'}}) }}
-        {{ form_label(registrationForm.agreeTerms, 'I agree to the terms', {'label_attr': {'class': 'form-check-label'}}) }}
-      </div>
+      
       <div class="my-3"></div>
 
       <button type="submit" class="btn btn-primary btn-lg btn-block">Register</button>
       <div class="my-3"></div>
-        <a href="{{ path('app_login') }}" class="btn btn-danger btn-lg btn-block">Back To Login</a>
+      <a href="{{ path('app_login') }}" class="btn btn-danger btn-lg btn-block">Back To Login</a>
       {{ form_end(registrationForm) }}
     </div>
   </div>
