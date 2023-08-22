@@ -19,9 +19,9 @@ class RegistrationFormType extends AbstractType
     {
         $builder
             ->add('login')
-            
             ->add('plainPassword', PasswordType::class, [
                 'mapped' => false,
+                'required' => false,
                 'attr' => ['autocomplete' => 'new-password'],
                 'constraints' => [
                     new NotBlank([

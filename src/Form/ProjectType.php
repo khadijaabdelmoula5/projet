@@ -7,6 +7,7 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
+use Symfony\Component\Validator\Constraints\File;
 
 
 class ProjectType extends AbstractType
@@ -16,21 +17,32 @@ class ProjectType extends AbstractType
         $builder
         ->add('name', null, [
             'attr' => ['class' => 'form-control'],
-            'label' => 'Name'
+            'label' => 'Name',
+            
         ])
         ->add('address_project', null, [
             'attr' => ['class' => 'form-control'],
-            'label' => 'Address Project'
+            'label' => 'Address Project',
+            
         ])
         ->add('picture', FileType::class, [
             'attr' => ['class' => 'form-control'],
             'label' => 'Picture',
             'mapped' => false,
             'required' => false,  // To make the field optional
+            'constraints' => [
+                new File([
+                    'maxSize' => '2M', // Adjust the maximum file size as needed
+                    'mimeTypes' => ['image/*'],
+                    'mimeTypesMessage' => 'Please upload a valid image file.',
+                    'extensions' => ['jpg', 'jpeg', 'png', 'gif'],
+                ]),
+            ],
         ])
         ->add('description', null, [
             'attr' => ['class' => 'form-control'],
-            'label' => 'Description'
+            'label' => 'Description',
+          
         ])
         ->add('project_status', null, [
             'attr' => ['class' => 'form-control'],
@@ -49,4 +61,5 @@ class ProjectType extends AbstractType
             'data_class' => Project::class,
         ]);
     }
+
 }

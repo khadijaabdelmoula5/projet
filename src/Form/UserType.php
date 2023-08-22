@@ -9,6 +9,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Validator\Constraints\IsTrue;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
 
 class UserType extends AbstractType
 {
@@ -16,13 +17,15 @@ class UserType extends AbstractType
     {
         $builder
             ->add('login', null, [
-                'attr' => ['class' => 'form-control'],
-                'label' => 'Login'
+               
+                'label' => 'Login',
+                
             ])
            # ->add('roles')
-           ->add('password', null, [
-            'attr' => ['class' => 'form-control'],
+           ->add('password',  PasswordType::class, [
             'label' => 'Password',
+            
+            'required' => false,
             'constraints' => [
                 new NotBlank([
                     'message' => 'Please enter a password',
