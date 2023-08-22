@@ -49,6 +49,7 @@ class UserController extends AbstractController
             $user->setRoles(['ROLE_USER']);
             $entityManager->persist($user);
             $entityManager->flush();
+            $this->addFlash('success', 'New user created! Welcome!');
             // do anything else you need here, like send an email
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
 
@@ -87,7 +88,7 @@ class UserController extends AbstractController
                 )
                 );
             $entityManager->flush();
-
+            $this->addFlash('success', 'user updated');
             return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
         }
 
@@ -103,7 +104,8 @@ class UserController extends AbstractController
         if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->request->get('_token'))) {
             $entityManager->remove($user);
             $entityManager->flush();
-        
+            $this->addFlash('success', 'user deleted');
+
         }
 
         return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
